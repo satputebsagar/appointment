@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Profile from "./components/Profile/Profile";
+import Googlelogin from "./components/GoogleL/GoogleLogin";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends React.Component{
+
+  state={
+    isLoggedIn:false,
+    userProfile:null,
+  };
+
+  login=(userData)=>{
+    this.setState({
+      isLoggedIn:true,
+      userProfile:userData.user,
+    });
+  };
+
+
+  logout=()=>{
+    this.setState({
+      isLoggedIn:false,
+      userProfile:null,
+    });
+  };
+
+  render(){
+    return(
+      <>
+      {
+        this.state.isLoggedIn ?(
+        <Profile user={this.state.userProfile}/>
+        ):(
+          <Googlelogin login ={this.login}/>
+        )
+      }
+      
+      </>
+    )
+  }
+
+
 }
+
 
 export default App;
